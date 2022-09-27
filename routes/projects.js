@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
+/* GET Projects page. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a projects');
+  res.render('projects', { title: 'Projects' });
 });
 
 module.exports = router;
