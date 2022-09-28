@@ -6,6 +6,15 @@ main .title {
   font-weight: bold;
 }
 
+nav .collapse ul li:hover a, ul .nav-item.active {
+  background-color: rgb(233, 233, 233);
+  color: #0c0c0c;
+}
+
+ul .nav-item.active a {
+  color: #0c0c0c;
+}
+
 /* Home */
 
 .container-img {

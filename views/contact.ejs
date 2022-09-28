@@ -2,7 +2,6 @@
 
 <%- include partials/navbar.ejs %>
 
-
 <!-- Main Content -->
 <main class="container py-4 mb-5 text-center">
   <h1 class="title">Contact</h1>
@@ -27,8 +26,8 @@
           <input type="text" class="form-control" id="inputPhone">
         </div>
         <div class="col-6">
-          <label for="inputAddress2" class="form-label">Main Interest</label>
-          <select class="form-select form-control" aria-label="Default select example">
+          <label for="inputInterest" class="form-label">Main Interest</label>
+          <select class="form-select form-control" aria-label="Interest">
             <option selected></option>
             <option value="1">Services</option>
             <option value="2">Consulting</option>
@@ -41,13 +40,12 @@
           <textarea class="form-control" id="inputMessage" rows="3"></textarea>
         </div>
         <div class="col-12">
-          <button type="submit" class="btn btn-dark">Send</button>
+          <a href="/" class="btn btn-dark">Send</a>
         </div>
       </form>
     </div>
   </div>
 
 </main>
-
 
 <%- include partials/footer.ejs %>
