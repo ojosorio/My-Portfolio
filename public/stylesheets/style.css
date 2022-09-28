@@ -2,10 +2,9 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+main .title {
+  font-weight: bold;
 }
-
 
 /* Home */
 
@@ -29,10 +28,21 @@ a {
   font-weight: bold;
 }
 
-.container-img .body .btn {
-  text-shadow: 0 0 black;
+.container-img .body a {
+  text-shadow: 0 0 #0c0c0c;
 }
 
+/* About */
 
+/* Projects */
+
+.accordion-button:not(.collapsed) {
+  color: #FFF;
+  background-color: #b1b1b1;
+}
+
+/* Services */
+
+/* Contact */
 
 
