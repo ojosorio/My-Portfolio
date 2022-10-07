@@ -11,21 +11,21 @@
 
       <table class="table table-bordered table-striped table-hover">
         <tr>
-          <th class="text-center">Name</th>
-          <th class="text-center">Number</th>
-          <th class="text-center">Email</th>
+          <th class="text-center">Contact Name</th>
+          <th class="text-center">Contact Number</th>
+          <th class="text-center">Email Address</th>
           <th class="text-center"></th>
         </tr>
 
         <% for (let count=0; count<contactList.length; count++){%>
         <tr>
           <td class="text-centre"><%=contactList[count].name %></td>
-          <td class="text-centre"><%=contactList[count].number %></td>
+          <td class="text-centre"><%=contactList[count].phone %></td>
           <td class="text-centre"><%=contactList[count].email %></td>
           <td class="text-centre">
             <div class="d-grid gap-2 d-md-block">
-              <a href="/business/update" class="btn btn-warning" type="button">Update</a>
-              <a href="/business/delete" class="btn btn-danger" type="button">Delete</a>
+              <a href="/business/update" class="btn btn-warning btn-sm" type="button">Update</a>
+              <a href="/business/delete" class="btn btn-danger btn-sm" type="button">Delete</a>
             </div>
           </td>
         </tr>
