@@ -1,0 +1,28 @@
+<%- include partials/header.ejs %>
+
+<%- include partials/navbar.ejs %>
+
+<!-- Main Content -->
+<main class="container login py-4 mb-5 text-center">
+
+  <form class="row g-3">
+    <h3>Login</h3>
+    <div class="text-start col-md-12">
+      <label for="inputUser" class="form-label">User</label>
+      <input type="text" class="form-control" id="inputUser">
+    </div>
+    <div class="text-start col-md-12">
+      <label for="inputPassword" class="form-label">Password</label>
+      <input type="password" class="form-control" id="inputPassword">
+    </div>
+    <div class="text-start col-md-12">
+      <label><span class="badge text-bg-danger">User and/or password invalid</span></label>
+    </div>
+    <div class="d-grid gap-2 pt-5">
+      <a href="/" class="btn btn-success">SING IN</a>
+    </div>
+  </form>
+
+</main>
+
+<%- include partials/footer.ejs %>
