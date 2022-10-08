@@ -24,7 +24,7 @@
           <td class="text-centre"><%=contactList[count].email %></td>
           <td class="text-centre">
             <div class="d-grid gap-2 d-md-block">
-              <a href="/business/update" class="btn btn-warning btn-sm" type="button">Update</a>
+              <a href="/business/update/<%= contactList[count]._id %>" class="btn btn-warning btn-sm" type="button">Update</a>
               <a href="/business/delete" class="btn btn-danger btn-sm" type="button">Delete</a>
             </div>
           </td>

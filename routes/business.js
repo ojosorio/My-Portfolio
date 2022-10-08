@@ -15,10 +15,40 @@ router.get('/', function (req, res, next) {
   });
 });
 
+router.post('/update', function (req, res, next) {
+  let updatedContact = contact({
+    _id: req.body.id,
+    email: req.body.email,
+    address: req.body.address,
+    name: req.body.name,
+    phone: req.body.phone
+  });
+
+  console.log("updateContact: " + updatedContact);
+  contact.updateOne({ _id: updatedContact._id }, updatedContact, (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error updating");
+    }
+    else {
+      res.status(200).send("success");
+    }
+  });
+});
+
 router.get('/update/:contactId', function (req, res, next) {
-  var contactDetails = { name: "jhon mcdonals", number: "2313334344", email: "jmc@gmail.com" };
-  console.log("contactId");
-  res.render('business/update', { title: 'Business Update', contactDetails: contactDetails });
+  let id = req.params.contactId;
+  console.log("_id: " + id);
+  contact.findById(id, (err, contactDetail) => {
+    if (err) {
+      console.log(err);
+      res.end(err);
+    } else {
+      //return the edit view
+      console.log(contactDetail);
+      res.render('business/update', { title: 'Business Contact', contactDetail: contactDetail });
+    }
+  });
 });
 
 router.get('/delete/:contactId', function (req, res, next) {
