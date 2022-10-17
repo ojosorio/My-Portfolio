@@ -52,9 +52,16 @@ router.get('/update/:contactId', function (req, res, next) {
 });
 
 router.get('/delete/:contactId', function (req, res, next) {
-  var contactDetails = { name: "jhon mcdonals", number: "2313334344", email: "jmc@gmail.com" };
-  console.log("contactId");
-  res.render('business/update', { title: 'Business Update', contactDetails: contactDetails });
+  let id = req.params.contactId;
+
+  contact.remove({ _id: id }, (err) => {
+    if (err) {
+      console.log(err);
+      res.end(err);
+    } else {
+      res.redirect("/business");
+    }
+  });
 });
 
 module.exports = router;

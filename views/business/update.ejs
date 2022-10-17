@@ -9,7 +9,7 @@
   <div class="center">
     <div class="col-md-offset-3 col-md-12 width-sm">
       <form id="update_form" class="row g-3">
-        <input type="hidden" id="id" name="id" value="<%= contactDetail._id %>">
+        <input type="hidden" id="h_id" name="id" value="<%= contactDetail._id %>">
         <div class="col-md-12 text-start">
           <label for="inputName" class="form-label">Name</label>
           <input type="text" class="form-control" id="name" name="name" value="<%= contactDetail.name %>" required>
@@ -34,7 +34,7 @@
         <div class="col-md-12">
           <a id="submit_update" href="#" class="btn btn-success">Update</a>
           <a href="/business" class="btn btn-secondary">Cancel</a>
-          <a href="/" class="btn btn-danger">Delete</a>
+          <a href="/business/delete/<%= contactDetail._id %>" class="btn btn-danger">Delete</a>
         </div>
       </form>
 
@@ -50,7 +50,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Update successful</p>
+          <h5>Update successful</h5>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
