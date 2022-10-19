@@ -3,9 +3,19 @@ var router = express.Router();
 //import models
 let contact = require("../models/business_contacts");
 
+// helper function for guard purposes
+function requireAuth(req, res, next) {
+  // check if the user is logged in
+  console.log(req);
+  if (!req.isAuthenticated()) {
+    return res.redirect("/login");
+  }
+  next();
+}
+
 /* GET Business page. */
-router.get('/', function (req, res, next) {
-  contact.find((err, contactList) => {
+router.get('/', requireAuth, function (req, res, next) {
+  contact.find().sort('name').exec((err, contactList) => {
     if (err) {
       return console.error(err);
     } else {
@@ -15,7 +25,7 @@ router.get('/', function (req, res, next) {
   });
 });
 
-router.post('/update', function (req, res, next) {
+router.post('/update', requireAuth, function (req, res, next) {
   let updatedContact = contact({
     _id: req.body.id,
     email: req.body.email,
@@ -36,7 +46,7 @@ router.post('/update', function (req, res, next) {
   });
 });
 
-router.get('/update/:contactId', function (req, res, next) {
+router.get('/update/:contactId', requireAuth, function (req, res, next) {
   let id = req.params.contactId;
   console.log("_id: " + id);
   contact.findById(id, (err, contactDetail) => {
@@ -51,7 +61,7 @@ router.get('/update/:contactId', function (req, res, next) {
   });
 });
 
-router.get('/delete/:contactId', function (req, res, next) {
+router.get('/delete/:contactId', requireAuth, function (req, res, next) {
   let id = req.params.contactId;
 
   contact.remove({ _id: id }, (err) => {
