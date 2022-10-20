@@ -19,7 +19,7 @@ router.get('/', requireAuth, function (req, res, next) {
     if (err) {
       return console.error(err);
     } else {
-      res.render('business/business', { title: "Business", contactList: contactList });
+      res.render('business/business', { title: "Business",contactList: contactList });
     }
   });
 });
