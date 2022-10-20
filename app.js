@@ -4,17 +4,18 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require("body-parser");
 
 // auth setup
-let session = require("express-session");
-let passport = require("passport");
-let passportLocal = require("passport-local");
-let localStratergy = passportLocal.Strategy;
-let flash = require("connect-flash");
+var session = require("express-session");
+var MongoStore = require('connect-mongo')(session);
+var passport = require("passport");
+var passportLocal = require("passport-local");
+var localStratergy = passportLocal.Strategy;
 
 //database setup
-let mongoose = require("mongoose");
-let DB = require("./db");
+var mongoose = require("mongoose");
+var DB = require("./db");
 
 //mongoose connection 
 mongoose.connect(DB.URI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -32,7 +33,6 @@ var projectsRouter = require('./routes/projects');
 var servicesRouter = require('./routes/services');
 var businessRouter = require('./routes/business');
 var loginRouter = require('./routes/login');
-
 var app = express();
 
 // view engine setup
@@ -40,6 +40,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -53,31 +54,35 @@ app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist/')));
 app.use(
   session({
     secret: "SomeSecret",
-    saveUninitialized: false,
+    saveUninitialized: true,
     resave: false,
+    cookie: { maxAge: 1000 * 60 * 60 },
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 );
 
-//initialize flash
-app.use(flash());
-
+//passport configuration
 //intialize passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-//passport user configuration
+//authenticaion strategy implementation
+passport.use(new localStratergy((username, password, done) => {
+  return done(null, username);
+}));
 
-//create usermodel instance
-let userModel = require("./models/user");
-// let User = userModel.User;
+//serialize and deserialize user object
+passport.serializeUser(function (user, callback) {
+  process.nextTick(function () {
+    callback(null, { id: user.id, username: user.username });
+  });
+});
 
-//implement a user authenticaion Strategy
-// passport.use(User.createStrategy());
-passport.use(new localStratergy(userModel.authenticate()));
-
-//serialize and deserialize user object info -encrypt and decrypt
-passport.serializeUser(userModel.serializeUser());
-passport.deserializeUser(userModel.deserializeUser());
+passport.deserializeUser(function (user, callback) {
+  process.nextTick(function () {
+    return callback(null, user);
+  });
+});
 
 app.use('/', indexRouter);
 app.use('/about', aboutRouter);

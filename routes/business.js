@@ -3,10 +3,9 @@ var router = express.Router();
 //import models
 let contact = require("../models/business_contacts");
 
-// helper function for guard purposes
+//function for guard purposes
 function requireAuth(req, res, next) {
   // check if the user is logged in
-  console.log(req);
   if (!req.isAuthenticated()) {
     return res.redirect("/login");
   }
@@ -19,12 +18,12 @@ router.get('/', requireAuth, function (req, res, next) {
     if (err) {
       return console.error(err);
     } else {
-      console.log(contactList);
       res.render('business/business', { title: "Business", contactList: contactList });
     }
   });
 });
 
+/* POST to update contact */
 router.post('/update', requireAuth, function (req, res, next) {
   let updatedContact = contact({
     _id: req.body.id,
@@ -46,6 +45,7 @@ router.post('/update', requireAuth, function (req, res, next) {
   });
 });
 
+/* GET update contact detail*/
 router.get('/update/:contactId', requireAuth, function (req, res, next) {
   let id = req.params.contactId;
   console.log("_id: " + id);
@@ -61,6 +61,7 @@ router.get('/update/:contactId', requireAuth, function (req, res, next) {
   });
 });
 
+/* GET delete contact */
 router.get('/delete/:contactId', requireAuth, function (req, res, next) {
   let id = req.params.contactId;
 
