@@ -27,6 +27,14 @@ footer nav p {
   color: rgb(255, 255, 255, 0.55);
 }
 
+.width-sm {
+  width: 35em;
+}
+
+.center {
+  text-align: -webkit-center;
+}
+
 /* Home */
 
 .container-img {
@@ -65,3 +73,20 @@ footer nav p {
 /* Services */
 
 /* Contact */
+
+/* Business */
+
+/* Login */
+
+.container.login {
+  text-align: -webkit-center;
+}
+
+.login {
+  width: 35em;
+}
+
+.login form {
+  border: solid #dee2e6;
+  padding: 25px 25px;
+}

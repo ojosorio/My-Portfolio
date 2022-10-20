@@ -1,0 +1,67 @@
+<%- include ../partials/header.ejs %>
+
+<%- include ../partials/navbar.ejs %>
+
+<!-- Main Content -->
+<main class="container py-4 mb-5 text-center">
+
+<%- include ./logout.ejs %>
+
+  <h1 class="title"><%= title %></h1>
+
+  <div class="center">
+    <div class="col-md-offset-3 col-md-12 width-sm">
+      <form id="update_form" class="row g-3">
+        <input type="hidden" id="h_id" name="id" value="<%= contactDetail._id %>">
+        <div class="col-md-12 text-start">
+          <label for="inputName" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" name="name" value="<%= contactDetail.name %>" required>
+        </div>
+        <div class="col-md-12 text-start">
+          <label for="inputEmail" class="form-label">Email</label>
+          <input type="text" class="form-control" id="email" name="email" value="<%= contactDetail.email %>" required>
+        </div>
+        <div class="col-md-12 text-start">
+          <label for="inputPhone" class="form-label">Phone</label>
+          <input type="text" class="form-control" id="phone" name="phone" value="<%= contactDetail.phone %>" required>
+        </div>
+        <div class="col-md-12 text-start">
+          <label for="inputAddress" class="form-label">Address</label>
+          <input type="text" class="form-control" id="address" name="address" value="<%= contactDetail.address %>" required>
+        </div>
+        <div class="col-md-12">
+          <div id="update_alert" class="alert alert-danger" role="alert">
+            All fields required
+          </div>
+        </div>
+        <div class="col-md-12">
+          <a id="submit_update" href="#" class="btn btn-success">Update</a>
+          <a href="/business" class="btn btn-secondary">Cancel</a>
+          <a href="/business/delete/<%= contactDetail._id %>" class="btn btn-danger">Delete</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="updateModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Message</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h5>Update successful</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<%- include ../partials/footer.ejs %>

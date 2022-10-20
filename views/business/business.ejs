@@ -1,0 +1,43 @@
+<%- include ../partials/header.ejs %>
+
+<%- include ../partials/navbar.ejs %>
+
+<!-- Main Content -->
+<main class="container py-4 mb-5 text-center">
+
+  <%- include ./logout.ejs %>
+
+  <h1 class="title">Business Contacts</h1>
+
+  <div class="row">
+    <div class="col-md-offset-3 col-md-12">
+
+      <table class="table table-bordered table-striped table-hover">
+        <tr>
+          <th class="text-center">Contact Name</th>
+          <th class="text-center">Contact Number</th>
+          <th class="text-center">Email Address</th>
+          <th class="text-center"></th>
+        </tr>
+
+        <% for (let count=0; count<contactList.length; count++){%>
+        <tr>
+          <td class="text-centre"><%=contactList[count].name %></td>
+          <td class="text-centre"><%=contactList[count].phone %></td>
+          <td class="text-centre"><%=contactList[count].email %></td>
+          <td class="text-centre">
+            <div class="d-grid gap-2 d-md-block">
+              <a href="/business/update/<%= contactList[count]._id %>" class="btn btn-warning btn-sm" type="button">Update</a>
+              <a href="/business/delete/<%= contactList[count]._id %>" class="btn btn-danger btn-sm" type="button">Delete</a>
+            </div>
+          </td>
+        </tr>
+        <%}%>
+      </table>
+
+    </div>
+  </div>
+
+</main>
+
+<%- include ../partials/footer.ejs %>
