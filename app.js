@@ -32,7 +32,7 @@ var contactRouter = require('./routes/contact');
 var projectsRouter = require('./routes/projects');
 var servicesRouter = require('./routes/services');
 var businessRouter = require('./routes/business');
-var loginRouter = require('./routes/login');
+var authRouter = require('./routes/auth');
 var app = express();
 
 // view engine setup
@@ -53,7 +53,7 @@ app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist/')));
 //setup express session
 app.use(
   session({
-    secret: "SomeSecret",
+    secret: "secret",
     saveUninitialized: true,
     resave: false,
     cookie: { maxAge: 1000 * 60 * 60 },
@@ -68,6 +68,9 @@ app.use(passport.session());
 
 //authenticaion strategy implementation
 passport.use(new localStratergy((username, password, done) => {
+  //database validation goes here
+  //this assignment does not cover validation as it is not required
+  //any username and password return successful
   return done(null, username);
 }));
 
@@ -90,7 +93,7 @@ app.use('/contact', contactRouter);
 app.use('/projects', projectsRouter);
 app.use('/services', servicesRouter);
 app.use('/business', businessRouter);
-app.use('/login', loginRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

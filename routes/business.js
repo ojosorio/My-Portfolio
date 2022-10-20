@@ -7,13 +7,14 @@ let contact = require("../models/business_contacts");
 function requireAuth(req, res, next) {
   // check if the user is logged in
   if (!req.isAuthenticated()) {
-    return res.redirect("/login");
+    return res.redirect("/auth/login");
   }
   next();
 }
 
 /* GET Business page. */
 router.get('/', requireAuth, function (req, res, next) {
+  // get all contacts ordered alphabetically
   contact.find().sort('name').exec((err, contactList) => {
     if (err) {
       return console.error(err);
@@ -48,14 +49,12 @@ router.post('/update', requireAuth, function (req, res, next) {
 /* GET update contact detail*/
 router.get('/update/:contactId', requireAuth, function (req, res, next) {
   let id = req.params.contactId;
-  console.log("_id: " + id);
+  
   contact.findById(id, (err, contactDetail) => {
     if (err) {
       console.log(err);
       res.end(err);
     } else {
-      //return the edit view
-      console.log(contactDetail);
       res.render('business/update', { title: 'Business Contact', contactDetail: contactDetail });
     }
   });
