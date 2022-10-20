@@ -1,4 +1,4 @@
-//common packages
+// common packages
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -13,11 +13,11 @@ var passport = require("passport");
 var passportLocal = require("passport-local");
 var localStratergy = passportLocal.Strategy;
 
-//database setup
+// database setup
 var mongoose = require("mongoose");
 var DB = require("./db");
 
-//mongoose connection 
+// mongoose connection 
 mongoose.connect(DB.URI, { useNewUrlParser: true, useUnifiedTopology: true });
 let mongodb = mongoose.connection;
 mongodb.on("error", console.error.bind(console, "connection error:"));
@@ -50,31 +50,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist/')));
 app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist/')));
 
-//setup express session
+// setup express session
 app.use(
   session({
     secret: "secret",
     saveUninitialized: true,
     resave: false,
-    cookie: { maxAge: 1000 * 60 * 60 },
+    cookie: { maxAge: 1000 * 60 * 10 },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 );
 
-//passport configuration
-//intialize passport
+// passport configuration
+// intialize passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-//authenticaion strategy implementation
+// authentication strategy implementation
 passport.use(new localStratergy((username, password, done) => {
-  //database validation goes here
-  //this assignment does not cover validation as it is not required
-  //any username and password return successful
+  // database validation goes here
+  // this assignment does not cover validation as it is not required
+  // any username and password return successful
   return done(null, username);
 }));
 
-//serialize and deserialize user object
+// serialize and deserialize user object
 passport.serializeUser(function (user, callback) {
   process.nextTick(function () {
     callback(null, { id: user.id, username: user.username });
