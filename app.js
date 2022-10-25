@@ -5,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require("body-parser");
+var userModel = require("./models/user");
 
 // auth setup
 var session = require("express-session");
@@ -68,10 +69,15 @@ app.use(passport.session());
 
 // authentication strategy implementation
 passport.use(new localStratergy((username, password, done) => {
-  // database validation goes here
-  // this assignment does not cover validation as it is not required
-  // any username and password return successful
-  return done(null, username);
+  // database validation
+  userModel.findOne({ username: username, password: password }, function (err, retrievedUser) {
+    if (!retrievedUser) {
+      return done(null, false, { message: "User or password incorrect" });
+    }
+    // user returns successful
+    return done(null, retrievedUser);
+  });
+
 }));
 
 // serialize and deserialize user object
